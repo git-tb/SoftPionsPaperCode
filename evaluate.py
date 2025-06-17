@@ -90,7 +90,7 @@ for (i,file) in enumerate(specfiles):
 for (i, file) in enumerate(specfiles):
     df = pd.read_csv(file,comment="#")
 
-    pTs, spec,_ = df.to_numpy().T
+    pTs, spec = df.to_numpy().T
     lines.append(np.column_stack((pTs, spec)))
     
 linecol = LineCollection(lines,array=masses,cmap=CMAP,lw=LINEWIDTH)
@@ -115,14 +115,14 @@ fig.show()
 
 #%%
 ####
-####    PARAMETERS FOR PRIMARY (SIGMA) SPECTRUM COMPUTATION
+####    PARAMETERS FOR DECAY (PION) SPECTRUM COMPUTATION
 ####
 
 decayspecfolder = "decayspec"
 pTmax = 1
 NpT = 50
 epsrel=1e-5
-iterations = 10000
+iterations = 100000
 primespecfiles = sorted(glob.glob(parentdir+"/"+primaryspecfolder+"/*/*spectr.txt"))
 B=1
 Q=1
@@ -164,7 +164,20 @@ for (i,MSIGMA) in enumerate(masses):
 ####    VISUALIZE DECAY SPECTRA
 ####
 
-SCALE = 1
+SCALE = 0.21
+
+### \begin{equation}
+###     \frac{1}{2\pi p_{\text{T}}}\frac{\dt N}{\dt p_{\text{T}}\dt\eta_p}\Big\vert_{\pi^+}\sim B\,\vert\underbrace{\mathcal{A}_\sigma}_{\text{condensate amplitude}}\vert^2=\underbrace{\tilde{B}}_{\to 1}\ \vert\underbrace{\tilde{\mathcal{A}}_\sigma}_{\to\SI{0.1}{\GeV}}\vert^2\cdot\text{scale}\quad\implies\quad\mathcal{A}_\sigma=\tilde{\mathcal{A}}_\sigma\sqrt{\text{scale}/B}
+### \end{equation}
+
+### B... branching ratio, A... sigma condensate amplitude
+### in computation we instead use for simplicity
+###     B~ = 1
+###     A~ = 0.1 GeV
+### and adjust the scale in the plotting script.
+###
+### ->  spec \propto B * |A|^2 = B~ * |A~|^2 * scale        =>      A = A~ * sqrt(scale/B)
+###
 
 TICKLABELSIZE=20
 FIGSIZE = (7,7)
@@ -236,7 +249,7 @@ for (i, file) in enumerate(decayfiles):
 linecol = LineCollection(lines,array=masses,cmap=CMAP,lw=LINEWIDTH)
 ax.add_collection(linecol)
 ax.set_yscale("log")
-ax.set_xlim(0,2)
+ax.set_xlim(0,pTmax)
 ax.set_xlabel(SPEC_XLABEL, fontsize=AXISLABELSIZE)
 ax.set_ylabel(SPEC_YLABEL, fontsize=AXISLABELSIZE)
 
@@ -272,12 +285,12 @@ spec_fluidum_interp = np.exp(spec_fluidum_loginterp(pT_full))
 spec_full += spec_fluidum_interp
 
 COL = (1,0,0)
-ax_full.plot(pT_full, spec_fluidum_interp,lw=LINEWIDTH,c="b")
+ax_full.plot(pT_full, spec_fluidum_interp,lw=LINEWIDTH,c="b",label=r"Fluid$\mathdefault{u}$m")
 ax_full.fill_between(pT_full,spec_fluidum_interp,spec_full,facecolor=(*COL,0.2),edgecolor=COL,lw=LINEWIDTH,label=LEGEND)
 ax_full.errorbar(pTs_exp, spec_exp, spec_exp_err,label="experiment",c="b",fmt="o",markersize=MARKERSIZE,lw=LINEWIDTH)
 
 ax_full.set_yscale("log")
-ax_full.set_ylim(8e1,2e3)
+ax_full.set_ylim(3e1,2e3)
 ax_full.set_xlim(0,pTmax)
 ax_full.set_xlabel(SPEC_XLABEL, fontsize=AXISLABELSIZE)
 ax_full.set_ylabel(SPEC_YLABEL, fontsize=AXISLABELSIZE)
@@ -289,6 +302,7 @@ ax_full.grid(False)
 locmin = matplotlib.ticker.LogLocator(base=10.0,subs=(0.2,0.4,0.6,0.8))
 ax_full.yaxis.set_minor_locator(locmin)
 ax_full.yaxis.set_minor_formatter(matplotlib.ticker.LogFormatterSciNotation(base=10,labelOnlyBase=False,minor_thresholds=(5,2.5))) # means: the data spans ~5 decades and we want to see all minor ticks if we zoom in on a region of 2.5 decades
+ax_full.legend()
 
 fig_full.tight_layout()
 fig_full.show()

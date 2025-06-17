@@ -45,7 +45,7 @@ void writeFunctionsToFile(std::string path,
         else if constexpr (Real<T>)
             output << headers[i];
         else if constexpr (Complex<T>)
-            output << "Re@" << headers[i] <<  "Im@" << headers[i];
+            output << "Re@" << headers[i] <<  ",Im@" << headers[i];
         else    
             std::cerr << "Cannot convert function return type!" << std::endl;        
         if(i != headers.size()-1) output << ",";

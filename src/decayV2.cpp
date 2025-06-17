@@ -277,7 +277,7 @@ int main(int ac, char* av[])
     int NSAMPLE(1000);
     writeFunctionsToFile<double>(    pathname+"/primespec.txt",
                                     {primespec},
-                                    0, M_PI / 2.0, NSAMPLE,
+                                    0, qmax, NSAMPLE,
                                     {"qT","primespec"},
                                     {timestamp}
                         );
