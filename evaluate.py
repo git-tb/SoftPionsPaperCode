@@ -15,10 +15,49 @@ import matplotlib.ticker
 get_ipython().run_line_magic("matplotlib","qt")
 matplotlib.rcParams['mathtext.default'] = 'rm'
 
+TICKLABELSIZE=20
+FIGSIZE = (7,7)
+AXISLABELSIZE = 20
+LINEWIDTH = 2
+MARKERSIZE = 5
+
+SPEC_XLABEL = r"$p_T\ [GeV]$"
+SPEC_YLABEL = r"$(2\pi p_T)^{-1}dN_{\pi^++\pi^-}/(dp_Td\eta_p)\ [GeV^{-2}]$"
+
 MPI = 0.14                          # pion mass = 0.14 GeV
 MSIGMA_MIN, MSIGMA_MAX = 2*MPI, 2   # sigma mass, spectral function considered up to 2 GeV
-NMASSSAMPLES = 300                  # 200 masses sampled
-parentdir = "data/examplescenario"
+NMASSSAMPLES = 300                  # 300 masses sampled
+# parentdir = "data/examplescenario"
+# parentdir = "data/AuAu200_cc_(0,5)"
+parentdir = "data/PbPb276_cc_(0,5)"
+# parentdir = "data/XeXe544_cc_(0,5)"
+
+
+fig, ax = plt.subplots(figsize=(7,7))
+df_exp = pd.read_csv(parentdir+"/experimentaldata.csv",comment="#")
+pTs_exp, spec_exp, spec_exp_err = df_exp.to_numpy().T
+
+df_fluid = pd.read_csv(parentdir+"/fluidumdata.csv",comment="#")
+pTs_fluid, spec_fluid = df_fluid.to_numpy().T
+
+ax.scatter(pTs_exp, spec_exp,label="experiment")
+ax.scatter(pTs_fluid, spec_fluid,label=r"Fluid$\mathdefault{u}$m")
+
+ax.set_yscale("log")
+
+ax.set_title(parentdir.replace("data/",""))
+ax.set_xlabel(SPEC_XLABEL, fontsize=AXISLABELSIZE)
+ax.set_ylabel(SPEC_YLABEL, fontsize=AXISLABELSIZE)
+
+ax.tick_params(axis="both",labelsize=TICKLABELSIZE)
+ax.xaxis.set_ticks_position("bottom")
+ax.yaxis.set_ticks_position("left")
+ax.grid()
+ax.legend()
+
+fig.tight_layout()
+fig.show()
+
 
 #%%
 ####
@@ -38,6 +77,11 @@ primaryspecfolder = "primaryspec"
 ####
 ####    COMPUTE PRIMARY SPECTRA
 ####
+
+# prevent accidental execution of notebook cell
+confirm = input("start computation? (y/n):").strip().lower()
+if confirm != 'y':
+    raise RuntimeError("aborted")
 
 for (i,m) in enumerate(masses):
     foldername = primaryspecfolder+"/spec_{:%Y%m%d_%H%M%S}_".format(datetime.datetime.now())+str(i).zfill(int(np.ceil(np.log10(len(masses)))))
@@ -132,6 +176,11 @@ Q=1
 ####    COMPUTE DECAY SPECTRA
 ####
 
+# prevent accidental execution of notebook cell
+confirm = input("start computation? (y/n):").strip().lower()
+if confirm != 'y':
+    raise RuntimeError("aborted")
+
 masses = np.zeros(len(primespecfiles))
 for (i,file) in enumerate(primespecfiles):
     with open(file) as f:
@@ -164,7 +213,10 @@ for (i,MSIGMA) in enumerate(masses):
 ####    VISUALIZE DECAY SPECTRA
 ####
 
-SCALE = 0.21
+SCALE	= 0.15
+B		= 1./2.
+AMP		= 0.1 * np.sqrt(SCALE/B)
+print("amplitude:",AMP)
 
 ### \begin{equation}
 ###     \frac{1}{2\pi p_{\text{T}}}\frac{\dt N}{\dt p_{\text{T}}\dt\eta_p}\Big\vert_{\pi^+}\sim B\,\vert\underbrace{\mathcal{A}_\sigma}_{\text{condensate amplitude}}\vert^2=\underbrace{\tilde{B}}_{\to 1}\ \vert\underbrace{\tilde{\mathcal{A}}_\sigma}_{\to\SI{0.1}{\GeV}}\vert^2\cdot\text{scale}\quad\implies\quad\mathcal{A}_\sigma=\tilde{\mathcal{A}}_\sigma\sqrt{\text{scale}/B}
@@ -192,7 +244,7 @@ CMAP_TICKSIZE = 15
 LC_LABEL = r"$m\ [GeV]$"
 
 SPEC_XLABEL = r"$p_T\ [GeV]$"
-SPEC_YLABEL = r"$(2\pi p_T)^{-1}dN^\pi_{\sigma\to\pi\pi}/(dp_Td\eta_p)\ [GeV^{-2}]$"
+SPEC_YLABEL = r"$(2\pi p_T)^{-1}dN_{\pi^+}/(dp_Td\eta_p)\ [GeV^{-2}]$"
 LEGEND= r"$\sigma_{DCC}\to\pi\,\pi$"
 
 fig, ax = plt.subplots(figsize=(7,7))
@@ -274,6 +326,7 @@ pTs_exp, spec_exp, spec_exp_err = df_exp.to_numpy().T
 
 df_fluid = pd.read_csv(parentdir+"/fluidumdata.csv",comment="#")
 pTs_fluid, spec_fluid = df_fluid.to_numpy().T
+
 #
 
 def mylogpolyfit(datax, datay):
@@ -291,6 +344,7 @@ ax_full.errorbar(pTs_exp, spec_exp, spec_exp_err,label="experiment",c="b",fmt="o
 
 ax_full.set_yscale("log")
 ax_full.set_ylim(3e1,2e3)
+# ax_full.set_ylim(3e0,2e3)
 ax_full.set_xlim(0,pTmax)
 ax_full.set_xlabel(SPEC_XLABEL, fontsize=AXISLABELSIZE)
 ax_full.set_ylabel(SPEC_YLABEL, fontsize=AXISLABELSIZE)
@@ -306,4 +360,27 @@ ax_full.legend()
 
 fig_full.tight_layout()
 fig_full.show()
+
+### DATA/MODEL PLOT
+
+pTs_grid = np.linspace(0,1,50)
+spec_fluidum_grid = np.exp(spec_fluidum_loginterp(pTs_grid))
+spec_exp_loginterp = mylogpolyfit(pTs_exp, spec_exp)
+spec_exp_grid = np.exp(spec_exp_loginterp(pTs_grid))
+
+fig, ax = plt.subplots(figsize=(7,7))
+ax.plot(pTs_grid, spec_exp_grid/spec_fluidum_grid)
+
+ax.set_xlim(0,pTmax)
+ax.set_xlabel(SPEC_XLABEL, fontsize=AXISLABELSIZE)
+ax.set_ylabel("data/model", fontsize=AXISLABELSIZE)
+
+ax.tick_params(axis="both",labelsize=TICKLABELSIZE)
+ax.xaxis.set_ticks_position("bottom")
+ax.yaxis.set_ticks_position("left")
+ax.grid()
+
+fig.show()
+
 ###
+# %%

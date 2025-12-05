@@ -52,11 +52,6 @@ struct argsCUBA
     std::function<double(double)> primespec;
     double ma, mb, E_abc, Q;
 };
-/// CUBATURE LIBRARY IS NOT USED IN THE FINAL CODE
-// struct argsCUBATURE
-// {
-//     double p;
-// };
 
 /// FORM OF THE INTEGRAND REQUIRED BY CUBA LIBRARY
 static int integrandCUBA(
@@ -81,17 +76,6 @@ static int integrandCUBA(
 
     return 0;
 }
-/// SAME THING WITH CUBATURE
-// int integrandCUBATURE(
-//         unsigned ndim, const double *x,
-//         void *fdata,
-//         unsigned fdim, double *fval)
-// {
-//     double t(x[0]), v(x[1]);
-//     argsCUBATURE myargs = *(struct argsCUBATURE *)fdata;
-//     fval[0] = restrictfunc(t,v,myargs.p);
-//     return 0;
-// }
 
 std::vector<double> decayspec(
     std::vector<double> pTs,
@@ -111,7 +95,6 @@ std::vector<double> decayspec(
             E_abc = sqrt(mb*mb + p_abc*p_abc);
     std::vector<double> finalspec(pTs.size());
 
-    // argsCUBATURE myargsCUBATURE;
     argsCUBA myargsCUBA;
     myargsCUBA.E_abc = E_abc;
     myargsCUBA.ma = ma;
@@ -160,17 +143,6 @@ std::vector<double> decayspec(
 
         myargsCUBA.update(pTs[i], tmin, tmax, vmin, vmax);
 
-        // ------------------ WITH CUBATURE LIBRARY -------------------------
-        // const double    XMIN[2] = {tmin,vmin},
-        //                 XMAX[2] = {tmax,vmax};
-
-        // myargsCUBATURE.p = pTs[i];
-        // double val, err;
-        // hcubature(FDIM, integrandCUBATURE, &myargsCUBATURE, XDIM, XMIN, XMAX, MAXEVAL, ERRABS, ERRREL, ERROR_INDIVIDUAL, &val, &err);
-        // finalspec[i] = val;
-
-
-        // ------------------ WITH CUBA LIBRARY -------------------------
         // This performs the numerical integraion
         Cuhre(NDIM, NCOMP, integrandCUBA, USERDATA, NVEC,
             EPSREL, EPSABS, FLAGS,
@@ -187,7 +159,6 @@ std::vector<double> decayspec(
 
 int main(int ac, char* av[])
 {
-
     /// SET UP DEFAULT DIRECTORY NAME TO SAVE TO
     std::time_t t = std::time(nullptr);
     std::tm tm = *std::localtime(&t);
@@ -260,7 +231,7 @@ int main(int ac, char* av[])
     std::vector<double> y(primespecdata.data[1]);
     double qmin(0), qmax(x[x.size()-1]);
 
-    std::vector<double> log10y(y.size()); /// logarithmics data is probably interpolated better
+    std::vector<double> log10y(y.size()); /// logarithmic data is probably interpolated better
     for(int i = 0; i < y.size(); i++) log10y[i] = log10(y[i]);
 
     using boost::math::interpolators::pchip;
@@ -286,7 +257,7 @@ int main(int ac, char* av[])
     std::stringstream qmax_ss, primespec_ss, userinput_ss;
     qmax_ss         << "qmax:\t" << qmax;
     primespec_ss    << "primespec:\t" << primespecpath;
-    userinput_ss    << "ma:\t" << ma << "\n# "  /// the other comments are just 1 line per comment, therefore add the comment symbol "#" manually....
+    userinput_ss    << "ma:\t" << ma << "\n# "  /// the comments above are just 1 line per comment. Here we have multiple lines, therefore add the comment symbol "#" manually....
                     << "mb:\t" << mb << "\n# "
                     << "mc:\t" << mc << "\n# "
                     << "[=>] pabc:\t" << p_abc << "\n# "
