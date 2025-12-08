@@ -23,10 +23,10 @@ double u_star(double t, double v, double p, double ma, double mb, double E_abc, 
     return (ma * E_abc + t*Q*p*v)/(w(Q*t,ma) * w(p,mb));
 };
 /// THIS IS THE FULL INTEGRAND UP TO A FACTOR of B*Q*Q*ma/(p_abc * M_PI);
-double myintegrand(std::function<double(double)> primespec, double t, double v, double p, double ma, double mb, double E_abc, double Q){
+double myintegrand(std::function<double(double)>* primespec, double t, double v, double p, double ma, double mb, double E_abc, double Q){
     double u = u_star(t,v,p, ma, mb, E_abc, Q);
     if(u <= 1) return 0.0;
-    return (1/sqrt(u*u-1)) * (1/sqrt(1-v*v)) * (1/(w(t*Q,ma) * w(p,mb))) * t * primespec(t*Q);
+    return (1/sqrt(u*u-1)) * (1/sqrt(1-v*v)) * (1/(w(t*Q,ma) * w(p,mb))) * t * (*primespec)(t*Q);
 };
 
 /// TO CAST THE INTEGRAND INTO THE FORM REQUIRED BY THE INTEGRATION LIBRARY, INTRODUCE A STRUCT THAT HOLDS ALL PARAMETERS EXCEPT 
@@ -49,7 +49,7 @@ struct argsCUBA
     }
 
     double p, tmin, tmax, vmin, vmax;
-    std::function<double(double)> primespec;
+    std::function<double(double)>* primespec;
     double ma, mb, E_abc, Q;
 };
 
@@ -99,7 +99,7 @@ std::vector<double> decayspec(
     myargsCUBA.E_abc = E_abc;
     myargsCUBA.ma = ma;
     myargsCUBA.mb = mb;
-    myargsCUBA.primespec = primespec;
+    myargsCUBA.primespec = &primespec;
     myargsCUBA.Q = Q;
     myargsCUBA.tmax = qmax/Q;
     myargsCUBA.tmin = 0;

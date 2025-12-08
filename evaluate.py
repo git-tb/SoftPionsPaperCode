@@ -12,7 +12,8 @@ from matplotlib import pyplot as plt
 from matplotlib.collections import LineCollection
 from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.ticker
-get_ipython().run_line_magic("matplotlib","qt")
+# get_ipython().run_line_magic("matplotlib","qt")
+%matplotlib inline
 matplotlib.rcParams['mathtext.default'] = 'rm'
 
 TICKLABELSIZE=20
@@ -29,8 +30,8 @@ MSIGMA_MIN, MSIGMA_MAX = 2*MPI, 2   # sigma mass, spectral function considered u
 NMASSSAMPLES = 300                  # 300 masses sampled
 # parentdir = "data/examplescenario"
 # parentdir = "data/AuAu200_cc_(0,5)"
-parentdir = "data/PbPb276_cc_(0,5)"
-# parentdir = "data/XeXe544_cc_(0,5)"
+# parentdir = "data/PbPb276_cc_(0,5)"
+parentdir = "data/XeXe544_cc_(0,5)"
 
 
 fig, ax = plt.subplots(figsize=(7,7))
@@ -154,6 +155,7 @@ cbar = fig.colorbar(linecol, cax=cax)
 cbar.set_label(LC_LABEL, fontsize=CMAP_LABELSIZE)
 cbar.ax.tick_params(labelsize=CMAP_TICKSIZE)
 
+fig.savefig(parentdir+"/out_primespecs.png")
 fig.tight_layout()
 fig.show()
 
@@ -213,9 +215,13 @@ for (i,MSIGMA) in enumerate(masses):
 ####    VISUALIZE DECAY SPECTRA
 ####
 
-SCALE	= 0.15
+SCALE	= 0.11
 B		= 1./2.
 AMP		= 0.1 * np.sqrt(SCALE/B)
+Mpole = 0.3
+Gpole = 2* 0.125
+YMIN = 2e1
+YMAX = 5e3
 print("amplitude:",AMP)
 
 ### \begin{equation}
@@ -244,21 +250,20 @@ CMAP_TICKSIZE = 15
 LC_LABEL = r"$m\ [GeV]$"
 
 SPEC_XLABEL = r"$p_T\ [GeV]$"
-SPEC_YLABEL = r"$(2\pi p_T)^{-1}dN_{\pi^+}/(dp_Td\eta_p)\ [GeV^{-2}]$"
+SPEC_YLABEL = r"$(2\pi p_T)^{-1}dN_{\pi^++\pi^-}/(dp_Td\eta_p)\ [GeV^{-2}]$"
 LEGEND= r"$\sigma_{DCC}\to\pi\,\pi$"
 
+fig_dens, ax_dens = plt.subplots(figsize=(7,7))
 fig, ax = plt.subplots(figsize=(7,7))
 fig_full, ax_full = plt.subplots(figsize=(7,7))
 
 lines = []
 pT_full, spec_full = np.zeros(shape=(2,1))
 
+decayspecfolder="decayspec"
 decayfiles = sorted(glob.glob(parentdir+"/"+decayspecfolder+"/*/*decayspec.txt"))
 
 ### COMPUTE SPECTRAL FUNCTION AND WEIGHTS
-Mpole = 0.4
-Gpole = 2* 0.2
-
 msigma = np.sqrt(1/4 * (16 * MPI**2 + 
                         np.sqrt(16 * Gpole**2 * Mpole**2 + 
                                 (-16 * MPI**2 - Gpole**2 + 4*Mpole**2)**2)))
@@ -296,7 +301,21 @@ for (i, file) in enumerate(decayfiles):
 
     pT_full = pTs
     spec_full = spec_full + weights[i] * spec
-    
+
+### SPECTRAL DENSITY
+ax_dens.plot(masses,weights,lw=LINEWIDTH,c="b",label=r"$M_{\text{pole}}=$"+str(Mpole)+r"$GeV$"+"\n"+r"$\Gamma_{\text{pole}}=$"+str(Gpole)+r"$GeV$")
+ax_dens.set_xlabel(r"$\mu$", fontsize=AXISLABELSIZE)
+ax_dens.set_ylabel(r"$2\mu \rho(\mu)$", fontsize=AXISLABELSIZE)
+
+ax_dens.tick_params(axis="both",labelsize=TICKLABELSIZE)
+ax_dens.xaxis.set_ticks_position("bottom")
+ax_dens.yaxis.set_ticks_position("left")
+ax_dens.grid(False)
+ax_dens.legend()
+
+fig_dens.tight_layout()
+fig_dens.show()
+
 ### INDIVIDUAL DECAYSPEC PLOT
 linecol = LineCollection(lines,array=masses,cmap=CMAP,lw=LINEWIDTH)
 ax.add_collection(linecol)
@@ -315,6 +334,7 @@ cbar = fig.colorbar(linecol, cax=cax)
 cbar.set_label(LC_LABEL, fontsize=CMAP_LABELSIZE)
 cbar.ax.tick_params(labelsize=CMAP_TICKSIZE)
 
+ax.set_title(parentdir)
 fig.tight_layout()
 fig.show()
 ###
@@ -340,10 +360,11 @@ spec_full += spec_fluidum_interp
 COL = (1,0,0)
 ax_full.plot(pT_full, spec_fluidum_interp,lw=LINEWIDTH,c="b",label=r"Fluid$\mathdefault{u}$m")
 ax_full.fill_between(pT_full,spec_fluidum_interp,spec_full,facecolor=(*COL,0.2),edgecolor=COL,lw=LINEWIDTH,label=LEGEND)
+ax_full.plot([],[],lw=0,label=r"$\delta\sigma\approx$"+"%.2f"%(AMP)+r"$GeV$"+"\n"+r"$M_{\text{pole}}=$"+str(Mpole)+r"$GeV$"+"\n"+r"$\Gamma_{\text{pole}}=$"+str(Gpole)+r"$GeV$")
 ax_full.errorbar(pTs_exp, spec_exp, spec_exp_err,label="experiment",c="b",fmt="o",markersize=MARKERSIZE,lw=LINEWIDTH)
 
 ax_full.set_yscale("log")
-ax_full.set_ylim(3e1,2e3)
+ax_full.set_ylim(YMIN,YMAX)
 # ax_full.set_ylim(3e0,2e3)
 ax_full.set_xlim(0,pTmax)
 ax_full.set_xlabel(SPEC_XLABEL, fontsize=AXISLABELSIZE)
@@ -358,29 +379,34 @@ ax_full.yaxis.set_minor_locator(locmin)
 ax_full.yaxis.set_minor_formatter(matplotlib.ticker.LogFormatterSciNotation(base=10,labelOnlyBase=False,minor_thresholds=(5,2.5))) # means: the data spans ~5 decades and we want to see all minor ticks if we zoom in on a region of 2.5 decades
 ax_full.legend()
 
+ax_full.set_title(parentdir)
 fig_full.tight_layout()
 fig_full.show()
 
-### DATA/MODEL PLOT
+# ### DATA/MODEL PLOT
 
-pTs_grid = np.linspace(0,1,50)
-spec_fluidum_grid = np.exp(spec_fluidum_loginterp(pTs_grid))
-spec_exp_loginterp = mylogpolyfit(pTs_exp, spec_exp)
-spec_exp_grid = np.exp(spec_exp_loginterp(pTs_grid))
+# pTs_grid = np.linspace(0,1,50)
+# spec_fluidum_grid = np.exp(spec_fluidum_loginterp(pTs_grid))
+# spec_exp_loginterp = mylogpolyfit(pTs_exp, spec_exp)
+# spec_exp_grid = np.exp(spec_exp_loginterp(pTs_grid))
 
-fig, ax = plt.subplots(figsize=(7,7))
-ax.plot(pTs_grid, spec_exp_grid/spec_fluidum_grid)
+# fig, ax = plt.subplots(figsize=(7,7))
+# ax.plot(pTs_grid, spec_exp_grid/spec_fluidum_grid)
 
-ax.set_xlim(0,pTmax)
-ax.set_xlabel(SPEC_XLABEL, fontsize=AXISLABELSIZE)
-ax.set_ylabel("data/model", fontsize=AXISLABELSIZE)
+# ax.set_xlim(0,pTmax)
+# ax.set_xlabel(SPEC_XLABEL, fontsize=AXISLABELSIZE)
+# ax.set_ylabel("data/model", fontsize=AXISLABELSIZE)
 
-ax.tick_params(axis="both",labelsize=TICKLABELSIZE)
-ax.xaxis.set_ticks_position("bottom")
-ax.yaxis.set_ticks_position("left")
-ax.grid()
+# ax.tick_params(axis="both",labelsize=TICKLABELSIZE)
+# ax.xaxis.set_ticks_position("bottom")
+# ax.yaxis.set_ticks_position("left")
+# ax.grid()
 
-fig.show()
+# fig.show()
+
+# fig.savefig(parentdir+"/out_massspecs.png")
+# fig_full.savefig(parentdir+"/out_fullspec.png")
+# fig_dens.savefig(parentdir+"/out_specdense.png")
 
 ###
 # %%
