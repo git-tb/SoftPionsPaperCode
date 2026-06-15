@@ -13,6 +13,7 @@
 #include "savedata.h"       /// write to file
 #include "filereader.h"     /// readcsv
 #include "constants.h"      /// GeV to inverse fm
+#include "integrate_nested.h"
 #include "cuba.h"
 
 #include "debugmsg.h"
@@ -22,6 +23,7 @@ double w(double p, double m) { return sqrt(p*p + m*m);};
 double u_star(double t, double v, double p, double ma, double mb, double E_abc, double Q){
     return (ma * E_abc + t*Q*p*v)/(w(Q*t,ma) * w(p,mb));
 };
+
 /// THIS IS THE FULL INTEGRAND UP TO A FACTOR of B*Q*Q*ma/(p_abc * M_PI);
 double myintegrand(std::function<double(double)>* primespec, double t, double v, double p, double ma, double mb, double E_abc, double Q){
     double u = u_star(t,v,p, ma, mb, E_abc, Q);
@@ -29,78 +31,26 @@ double myintegrand(std::function<double(double)>* primespec, double t, double v,
     return (1/sqrt(u*u-1)) * (1/sqrt(1-v*v)) * (1/(w(t*Q,ma) * w(p,mb))) * t * (*primespec)(t*Q);
 };
 
-double tmin(double ma, double mb, double E_abc, double pT, double Q)    {
+double tmin(double ma, double mb, double E_abc, double p_abc, double pT, double Q)    {
     double tmin_ = ma * (E_abc*pT - w(pT,mb) * p_abc)/(Q*mb*mb);
     tmin_ = tmin_ > 0 ? tmin_ : 0;
     return tmin_;
 }
 
-double tmax(double ma, double mb, double E_abc, double pT, double Q, double qmax){;
+double tmax(double ma, double mb, double E_abc, double p_abc, double pT, double Q, double qmax){;
     double tmax_ = ma * (E_abc*pT + w(pT,mb) * p_abc)/(Q*mb*mb);
     return tmax_ < qmax/Q ? tmax_ : qmax/Q;
 }
 
-double vmin(double t, double pT, double ma, double mb, double E_abc, double Q)   {
-    double vmin_ = (w(pT,mb)*w(Q*t,ma)-ma*E_abc)/(t*Q*p);
+double vmin(double t, double ma, double mb, double E_abc, double p_abc, double pT, double Q)    {
+    double vmin_ = (w(pT,mb)*w(Q*t,ma)-ma*E_abc)/(t*Q*pT);
     vmin_ = vmin_ > -1 ? vmin_ : -1;
     vmin_ = vmin_ < 1 ? vmin_ : 1;
     return vmin_;
 }
 
-double myintengrand_transformed(std::function<double(double)>* primespec, double tnormed, double vnormed, double p, double ma, double mb, double E_abc, double Q, double qmax){
-    double dt = tmax(ma, mb, E_abc, p, Q, qmax) - tmin(ma, mb, E_abc, p, Q);
-    double t = tmin(ma, mb, E_abc, p, Q) + dt * tnormed;
-    double dv = vmax(ma, mb, E_abc, p, Q, qmax) - vmin(t, p, ma, mb, E_abc, Q);
-    double v = vmin(t, p, ma, mb, E_abc, Q) + dv * vnormed;
-    return dt * dv * myintegrand(primespec, t, v, p, ma, mb, E_abc, Q);
-};
-
-/// TO CAST THE INTEGRAND INTO THE FORM REQUIRED BY THE INTEGRATION LIBRARY, INTRODUCE A STRUCT THAT HOLDS ALL PARAMETERS EXCEPT 
-///  THE INTEGRATION VARIABLES t AND v
-struct argsCUBA
-{
-    /// MAYBE THINK ABOUT WHETHER TO DELETE TO DEFAULT CONSTRUCTOR FOR SAFETY...THOUGH IT MAKES THINGS A LITTLE MORE MESSY
-    /// argsCUBA() = delete; // NOT ACCIDENTAL INITIALIZATION
-    /// argsCUBA(double p_, double tmin_, double tmax_, double vmin_, double vmax_, std::function<double(double)> primespec_, double ma_, double mb_, double E_abc_, double Q_) :
-    ///    p(p_), tmin(tmin_), tmax(tmax_), vmin(vmin_), vmax(vmax_), primespec(primespec_), ma(ma_), mb(mb_), E_abc(E_abc_), Q(Q_)
-    /// {};
-
-    /// MAYBE IT'S EASIER TO UPDATE ALL RELEVANT VARIABLES IN A FUNCTION CALL IF NECESSARY
-    void update(double p_, double tmin_, double tmax_, double vmin_, double vmax_) {
-        p = p_;
-        tmin = tmin_;
-        tmax = tmax_;
-        vmin = vmin_;
-        vmax = vmax_;
-    }
-
-    double p, tmin, tmax, vmin, vmax;
-    std::function<double(double)>* primespec;
-    double ma, mb, E_abc, Q;
-};
-
-/// FORM OF THE INTEGRAND REQUIRED BY CUBA LIBRARY
-static int integrandCUBA(
-    const int *ndim, const double xx[],
-    const int *ncomp, double ff[], void *userdata)
-{    
-    argsCUBA* myargs = (struct argsCUBA*)userdata;
-
-    /// CUBA INTEGRATES OVER [0,1]^D, THEREFORE WE NEED TO SCALE THE ARGUMENTS
-    ///     BUT ALSO THE INTEGRAL MEASURE (OR EQUIVALENTLY, THE INTEGRAND)
-    double t = myargs->tmin + (myargs->tmax - myargs->tmin) * xx[0];
-    double v = myargs->vmin + (myargs->vmax - myargs->vmin) * xx[1];
-
-    ff[0] = (myargs->tmax - myargs->tmin) * (myargs->vmax - myargs->vmin) * myintegrand(myargs->primespec,
-                                                                                        t,
-                                                                                        v,
-                                                                                        myargs->p,
-                                                                                        myargs->ma,
-                                                                                        myargs->mb,
-                                                                                        myargs->E_abc,
-                                                                                        myargs->Q);
-
-    return 0;
+double vmax(double t, double ma, double mb, double E_abc, double p_abc, double pT, double Q)    {
+    return 1;
 }
 
 std::vector<double> decayspec(
@@ -121,62 +71,21 @@ std::vector<double> decayspec(
             E_abc = sqrt(mb*mb + p_abc*p_abc);
     std::vector<double> finalspec(pTs.size());
 
-    argsCUBA myargsCUBA;
-    myargsCUBA.E_abc = E_abc;
-    myargsCUBA.ma = ma;
-    myargsCUBA.mb = mb;
-    myargsCUBA.primespec = &primespec;
-    myargsCUBA.Q = Q;
-    myargsCUBA.tmax = qmax/Q;
-    myargsCUBA.tmin = 0;
-    myargsCUBA.vmax = 1;
-    myargsCUBA.vmin = -1;
-    myargsCUBA.p = 0.0;
-
-    const int   NDIM(2), 
-                NCOMP(1), 
-                NVEC(1), 
-                FLAGS(0), 
-                MINEVAL(0), 
-                MAXEVAL(iterations), 
-                KEY(0);
-    void* USERDATA(&myargsCUBA);
-    void* SPIN(NULL);
-    const double EPSREL(epsrel), EPSABS(epsabs);
-    const char* STATEFILE(NULL);
-
-    int nregions, neval, fail;
-    double integral[NCOMP], error[NCOMP], prob[NCOMP];
+    double result, error, prob;
     for (int i = 0; i < pTs.size(); i++)
     {
         std::cout << i + 1 << " / " << pTs.size() << std::endl;
 
-        double vmin(-1);
-        double tmin(0);
-        double vmax(1);
-        double tmax(qmax/Q);
-            
-        if(-E_abc*E_abc + pTs[i]*pTs[i] + mb*mb >= 0) // if w_p >= E_abc
-            vmin = sqrt(-E_abc*E_abc + pTs[i]*pTs[i] + mb*mb)/pTs[i];
-        // if(E_abc >= mb) // this is always true
-        // tmin = ma * (E_abc*pTs[i] - w(pTs[i],mb) * sqrt(E_abc*E_abc - mb*mb))/(mb*mb);
-        // tmax = ma * (E_abc*pTs[i] + w(pTs[i],mb) * sqrt(E_abc*E_abc - mb*mb))/(mb*mb);
-        tmin = ma * (E_abc*pTs[i] - w(pTs[i],mb) * p_abc)/(Q*mb*mb);
-        tmax = ma * (E_abc*pTs[i] + w(pTs[i],mb) * p_abc)/(Q*mb*mb);
+        integrate_nested(
+            tmin(ma, mb, E_abc, p_abc, pTs[i], Q),
+            tmax(ma, mb, E_abc, p_abc, pTs[i], Q, qmax),
+            [&](double t){ return vmin(t, ma, mb, E_abc, p_abc, pTs[i], Q); },
+            [&](double t){ return vmax(t, ma, mb, E_abc, p_abc, pTs[i], Q); },
+            [&](double t, double v){ return myintegrand(&primespec, t, v, pTs[i], ma, mb, E_abc, Q); },
+            result, error, prob, epsrel, epsabs, iterations
+        );
 
-        tmin = tmin > 0 ? tmin : 0;
-        tmax = tmax < qmax/Q ? tmax : qmax/Q;
-
-        myargsCUBA.update(pTs[i], tmin, tmax, vmin, vmax);
-
-        // This performs the numerical integraion
-        Cuhre(NDIM, NCOMP, integrandCUBA, USERDATA, NVEC,
-            EPSREL, EPSABS, FLAGS,
-            MINEVAL, MAXEVAL, KEY,
-            STATEFILE, SPIN,
-            &nregions, &neval, &fail, integral, error, prob);
-
-        finalspec[i] = B * integral[0] * Q*Q*ma / (p_abc * M_PI);
+        finalspec[i] = B * result * Q*Q*ma / (p_abc * M_PI);
 
         callback(pTs[i],finalspec[i]);
     }
