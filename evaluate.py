@@ -270,7 +270,7 @@ SPEC_XLABEL = r"$p_T\ [GeV]$"
 SPEC_YLABEL = r"$(2\pi p_T)^{-1}dN/(dp_Tdy)\ [GeV^{-2}]$"
 LEGEND= r"$\sigma_{PRCC}\to\pi^+\,\pi^-$"
 
-fig_dens, ax_dens = plt.subplots(figsize=(7,7))
+fig_dens, ax_dens = plt.subplots(figsize=(7*np.sqrt(1.618),7/np.sqrt(1.618)))
 fig, ax = plt.subplots(figsize=(7,7))
 fig_full, ax_full = plt.subplots(figsize=(7,7))
 
@@ -334,9 +334,10 @@ BW = 1/np.pi * np.imag(1/(-fullmasses**2+MBW**2-1j*MBW*GBW))
 # ax_dens.plot([0.28,*masses],[0,*S(masses)],lw=LINEWIDTH,c="b",label=r"$M_{\text{pole}}=$"+str(Mpole)+r"$GeV$"+"\n"+r"$\Gamma_{\text{pole}}=$"+str(Gpole)+r"$GeV$")
 ax_dens.plot([0.28,*masses],[0,*S(masses)],lw=LINEWIDTH,c="b",label=r"Sill parametrization")
 # ax_dens.plot(fullmasses,BW,lw=LINEWIDTH,c="r",ls=":",label=r"Breit-Wigner")
-ax_dens.set_xlabel(r"$\mu$", fontsize=AXISLABELSIZE)
-ax_dens.set_ylabel(r"$\rho(\mu^2)$", fontsize=AXISLABELSIZE)
+ax_dens.set_xlabel(r"$\mu\ [GeV]$", fontsize=AXISLABELSIZE)
+ax_dens.set_ylabel(r"$\rho(\mu^2)\ [GeV^{-2}]$", fontsize=AXISLABELSIZE)
 ax_dens.set_xlim(0,ax_dens.get_xlim()[1])
+ax_dens.set_xticks([0,0.5,1,1.5,2])
 
 ax_dens.tick_params(axis="both",labelsize=TICKLABELSIZE)
 ax_dens.xaxis.set_ticks_position("bottom")
@@ -344,9 +345,9 @@ ax_dens.yaxis.set_ticks_position("left")
 ax_dens.grid(False)
 ax_dens.legend(fontsize=AXISLABELSIZE,loc=1)
 lims = ax_dens.get_ylim()
-ax_dens.vlines(0.28,ymin=0,ymax=1.3,lw=2,ls="-.",colors="k")
-ax_dens.text(0.12,0.9,r"$\mu=2m_\pi$",fontsize=AXISLABELSIZE,rotation=90)
-ax_dens.set_ylim(0.0001,1.3)
+ax_dens.vlines(0.28,ymin=0,ymax=1.2,lw=2,ls="-.",colors="k")
+ax_dens.text(0.12,0.7,r"$\mu=2m_\pi$",fontsize=AXISLABELSIZE,rotation=90)
+ax_dens.set_ylim(0.0001,1.2)
 ax_dens.set_xlim(0,2)
 
 fig_dens.tight_layout()
@@ -393,7 +394,7 @@ spec_full += spec_fluidum_interp
 
 # PLOT
 COL = (1,0,0)
-ax_full.plot(pT_full, spec_fluidum_interp,lw=LINEWIDTH,c="b",label=r"incoherent source"+"\n"+r"(Lu et al., 2024)")
+ax_full.plot(pT_full, spec_fluidum_interp,lw=LINEWIDTH,c="b",label=r"incoherent source"+"\n"+r"(Lu et al., 2025)")
 ax_full.fill_between(pT_full,spec_fluidum_interp,spec_full,facecolor=(*COL,0.2),edgecolor=COL,ls="--",lw=LINEWIDTH,label=LEGEND)
 # ax_full.plot([],[],lw=0,label=r"$\Delta\sigma_{\text{coherent}}=$"+"%.0f"%(1e3*AMP)+r"$\,MeV$"+"\n"+r"$M_{\sigma}=$"+"%.0f"%(1e3*Mpole)+r"$\,MeV$"+"\n"+r"$\Gamma_{\sigma}=$"+"%.0f"%(1e3*Gpole)+r"$\,MeV$")
 ax_full.plot([],[],lw=0,label=r"$\Delta\sigma_{\text{coherent}}=$"+"%.0f"%(1e3*AMP)+r"$\,MeV$")
