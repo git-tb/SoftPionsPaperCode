@@ -1,8 +1,8 @@
 CXX       := g++
 CXX_FLAGS := -std=c++2b
-# CXX_FLAGS += -g
+CXX_FLAGS += -g
 CXX_FLAGS += -O2
-CXX_FLAGS += -DNDEBUG
+# CXX_FLAGS += -DNDEBUG
 CXX_FLAGS += -fopenmp
 CXX_FLAGS += -Wall
 CXX_FLAGS += -Wno-sign-compare

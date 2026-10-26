@@ -1,0 +1,135 @@
+# Physics constants, sampling grids and integrator settings for ONE dataset.
+#
+# run_evaluation.py reads this file from the dataset directory itself
+# (<dataset>/config.toml) and carries NO defaults of its own: every key below is
+# required, and an unknown key is an error rather than a silently ignored typo.
+# Copy this file into a dataset directory to create its config:
+#
+#     cp config.template.toml 'datanew/AuAu200_cc_(0,5)/config.toml'
+#
+# The values here are the ones evaluate.ipynb used, so a fresh copy reproduces
+# the notebook's numbers.
+#
+# Changing a key invalidates the cached output of every stage that reads it.
+# run_evaluation.py stores a snapshot of the config alongside primaryspec/ and
+# decayspec/, and recomputes rather than reusing output that a config edit has
+# made stale -- it names the changed keys when it does.
+
+
+[physics]
+
+# Pion mass in GeV. Passed to the decay binary as --mb and --mc (the sigma
+# decays into two identical pions), and sets the 2*m_pi two-pion threshold that
+# the Sill spectral function vanishes at.
+m_pi = 0.14
+
+# Sill parametrisation of the sigma, as pole parameters in GeV. The notebook's
+# g_pole is written there as 2 * 0.275.
+m_pole = 0.449
+g_pole = 0.55
+
+# Condensate amplitude the expensive stages are actually run at, in GeV. This
+# MUST agree with RePhi in the dataset's initdata.csv -- the C++ stages read the
+# amplitude from that file, and this key only reproduces it for the legend
+# annotation. The staged datasets all use a constant RePhi = 0.1.
+amplitude = 0.1
+
+# Branching ratio passed to the decay binary (--B). The expensive stages run at
+# B = 1 and the physical branching ratio is applied at plot time instead; see
+# `scale` below.
+branching_compute = 1.0
+
+# Physical branching ratio of sigma -> pi+ pi-.
+branching = 0.5
+
+# THE ONE FITTED PARAMETER. The spectrum scales as B * |A_sigma|^2, so the 600
+# jobs per dataset run once at branching_compute and `amplitude` above, and the
+# physical result is recovered at plot time by this single multiplier, with
+#
+#     A_sigma = amplitude * sqrt(scale / branching)
+#
+# At scale = 0.06 and branching = 0.5 that is the 34.6 MeV coherent amplitude
+# printed in the figure legend. Changing it needs only a `--stages plot` re-run.
+#
+# Accepts a number, or the string "fit". With "fit" the scale is solved at plot
+# time so that baseline + coherent reproduces the measured pion YIELD dN/dy,
+# summed over every experimental bin inside [0, pt_max]. The spectrum is linear
+# in scale, so
+#
+#     scale = (N_measured - N_incoherent) / N_coherent_unscaled
+#
+# with each N = sum over bins of 2 pi pT dpT * spectrum(pT) at the bin centre.
+# Bin edges are inferred from the centres. The value chosen, its statistical
+# error (bins assumed uncorrelated), and the arithmetic behind it are recorded
+# in <dataset>/plot.log.
+#
+# Two things to know before using "fit":
+#   * the window starts at the lowest measured bin, which differs a lot between
+#     scenarios (0.05 GeV for XeXe, 0.2 GeV for AuAu), so a fitted scale is not
+#     directly comparable across systems in the way one shared fixed scale is;
+#   * where bins fall below the lowest FluiduM point (0.11 GeV) the baseline in
+#     them is EXTRAPOLATED. The plot stage warns and says how much yield that is.
+scale = 0.06
+
+# Dimensionful pT scale handed to the decay binary (--Q). The result is supposed
+# to be independent of it; that independence has never actually been tested.
+q_scale = 1.0
+
+# Number of charge states summed over: pi+ and pi-. Multiplies the decay
+# spectrum at assembly time.
+charge_multiplicity = 2
+
+
+[sampling]
+
+# The sigma is broad, so the whole chain runs over this many masses which are
+# then integrated against the spectral function. Both expensive stages scale
+# linearly in it: 300 means 300 spec runs and 300 decay runs per dataset.
+n_mass_samples = 300
+
+# Sigma mass sampling window in GeV. The masses are the interior points of
+# linspace(msigma_min, msigma_max, n_mass_samples + 2), so both endpoints are
+# excluded -- the spectral function is singular at neither, but the decay map is
+# undefined at msigma = 2*m_pi exactly.
+#
+# Note the spectral weights are renormalised over this window, so weight above
+# msigma_max is redistributed into it rather than dropped.
+msigma_min = 0.28
+msigma_max = 2.0
+
+# Primary (coherent sigma) spectrum grid: computed on [0, qt_max] GeV at n_qt
+# points. qt_max is deliberately far wider than pt_max below -- the decay map
+# integrates the primary spectrum out to q_T well above the pion p_T it is
+# producing, so a narrow primary grid would truncate that integral.
+qt_max = 4.0
+n_qt = 400
+
+# Decay (pion) spectrum grid: computed on [0, pt_max] GeV at n_pt points. This
+# is also the range the reported pion yields are integrated over.
+#
+# Decay spectra are used as integrated -- there is no smoothing step. If a
+# spectrum does come back with non-finite or non-positive points (decayV2 can;
+# decayV4 did not in a converged 300-mass batch) that one mass is repaired by a
+# degree-10 log-polynomial fit, which needs n_pt > 11 to be defined.
+pt_max = 1.0
+n_pt = 50
+
+
+[integration.spec]
+
+# Cuba error goals and iteration budget for the coherent source integral.
+# epsabs = 0 means the relative goal alone decides convergence.
+epsabs = 0.0
+epsrel = 1e-5
+max_iter = 10000
+
+
+[integration.decay]
+
+# Same, for the decay map. Needs a larger iteration budget than the source
+# integral. decayV4 reports Cuhre's fail flag when it cannot reach epsrel and
+# run_evaluation.py surfaces that; decayV2 and decayV3 never check it, and
+# decayV2's true error plateaus near 0.5% however tight this is set.
+epsabs = 0.0
+epsrel = 1e-5
+max_iter = 100000

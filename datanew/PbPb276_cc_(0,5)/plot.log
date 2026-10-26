@@ -1,0 +1,43 @@
+plot stage for PbPb276_cc_(0,5)
+written 2026-10-26 11:44:58
+
+dataset short name      : PbPb276
+
+--------------------------------------------------------------------
+decay spectra
+--------------------------------------------------------------------
+masses read             : 300
+repaired masses         : none
+
+--------------------------------------------------------------------
+scale
+--------------------------------------------------------------------
+mode                    : fitted (physics.scale = "fit")
+fit window              : [0.1, 1] GeV, 21 experimental bins
+measured yield          : 596.32 +- 11.9 (bins uncorrelated)
+incoherent yield        : 489.169
+required coherent yield : 107.152
+unscaled coherent yield : 3655.9
+FITTED SCALE            : 0.02930925 +- 0.00324
+dsigma_coherent         : 24.2113 MeV
+
+--------------------------------------------------------------------
+figures
+--------------------------------------------------------------------
+  fig_PbPb276_freezeout.pdf
+  fig_PbPb276_primespecs.pdf
+  fig_PbPb276_massspecs.pdf
+  fig_PbPb276_specdense.pdf
+  fig_PbPb276_fullspec.pdf
+  fig_PbPb276_fullspec_min.pdf
+
+--------------------------------------------------------------------
+yields
+--------------------------------------------------------------------
+integration range       : [0, 1] GeV
+incoherent (FluiduM)    : 523.224
+coherent (PRCC)         : 113.784
+ratio                   : 21.7468%
+
+--------------------------------------------------------------------
+no problems reported

@@ -1,0 +1,43 @@
+plot stage for AuAu200_cc_(0,5)plus15
+written 2026-10-26 11:44:55
+
+dataset short name      : AuAu200plus15
+
+--------------------------------------------------------------------
+decay spectra
+--------------------------------------------------------------------
+masses read             : 300
+repaired masses         : none
+
+--------------------------------------------------------------------
+scale
+--------------------------------------------------------------------
+mode                    : fitted (physics.scale = "fit")
+fit window              : [0.2, 1] GeV, 8 experimental bins
+measured yield          : 203.107 +- 0.731 (bins uncorrelated)
+incoherent yield        : 166.48
+required coherent yield : 36.6274
+unscaled coherent yield : 502.252
+FITTED SCALE            : 0.072926474 +- 0.00146
+dsigma_coherent         : 38.1907 MeV
+
+--------------------------------------------------------------------
+figures
+--------------------------------------------------------------------
+  fig_AuAu200plus15_freezeout.pdf
+  fig_AuAu200plus15_primespecs.pdf
+  fig_AuAu200plus15_massspecs.pdf
+  fig_AuAu200plus15_specdense.pdf
+  fig_AuAu200plus15_fullspec.pdf
+  fig_AuAu200plus15_fullspec_min.pdf
+
+--------------------------------------------------------------------
+yields
+--------------------------------------------------------------------
+integration range       : [0, 1] GeV
+incoherent (FluiduM)    : 217.248
+coherent (PRCC)         : 46.47
+ratio                   : 21.3903%
+
+--------------------------------------------------------------------
+no problems reported

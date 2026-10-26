@@ -1,0 +1,10 @@
+{
+  "msigma_max": 2.0,
+  "msigma_min": 0.28,
+  "n_mass_samples": 300,
+  "n_qt": 400,
+  "qt_max": 4.0,
+  "spec_epsabs": 0.0,
+  "spec_epsrel": 1e-05,
+  "spec_max_iter": 10000
+}

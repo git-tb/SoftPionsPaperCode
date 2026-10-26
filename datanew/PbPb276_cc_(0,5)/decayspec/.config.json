@@ -1,0 +1,10 @@
+{
+  "branching_compute": 1.0,
+  "decay_epsabs": 0.0,
+  "decay_epsrel": 1e-05,
+  "decay_max_iter": 100000,
+  "m_pi": 0.14,
+  "n_pt": 50,
+  "pt_max": 1.0,
+  "q_scale": 1.0
+}
