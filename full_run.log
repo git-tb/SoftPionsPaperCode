@@ -1,0 +1,433 @@
+root    : datanew
+datasets: 12
+stages  : spec, decay, plot
+jobs    : 8 (decay), 1 (spec)
+
+[1/12] AuAu200_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=AuAu200)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 70.86 (32.6%)
+
+[2/12] AuAu200_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=AuAu200plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 46.49 (21.4%)
+
+[3/12] AuAu200_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=AuAu200plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 38.23 (17.6%)
+
+[4/12] AuAu200_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=AuAu200plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 57.39 (26.4%)
+
+[5/12] PbPb276_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=PbPb276)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 232.93 (44.5%)
+
+[6/12] PbPb276_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=PbPb276plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 145.78 (27.9%)
+
+[7/12] PbPb276_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=PbPb276plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 116.04 (22.2%)
+
+[8/12] PbPb276_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=PbPb276plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 183.87 (35.1%)
+
+[9/12] XeXe544_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=XeXe544)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 361.28 (49.2%)
+
+[10/12] XeXe544_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: 3/300 runs reported a quality problem
+      mass 1.3600: 1 / 50 points did not reach the requested accuracy
+      mass 1.3657: 1 / 50 points did not reach the requested accuracy
+      mass 1.5314: 1 / 50 points did not reach the requested accuracy
+    plot : figures written (short=XeXe544plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 227.68 (31.0%)
+
+[11/12] XeXe544_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=XeXe544plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 181.06 (24.7%)
+
+[12/12] XeXe544_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=0.06 -> dsigma=34.6 MeV
+    spec : 300 runs, jobs=1, epsrel=1e-05, NpT=400 on [0,4]
+      spec: 25/300
+      spec: 50/300
+      spec: 75/300
+      spec: 100/300
+      spec: 125/300
+      spec: 150/300
+      spec: 175/300
+      spec: 200/300
+      spec: 225/300
+      spec: 250/300
+      spec: 275/300
+      spec: 300/300
+    spec : 300/300 runs reported GSL roundoff (tolerance not certifiable; achieved accuracy still tracks epsrel -- not a failure)
+    spec : all 300 runs converged to the requested accuracy
+    decay: 300 runs, jobs=8, bin=./bin/decayV4, epsrel=1e-05, NpT=50 on [0,1]
+      decay: 25/300
+      decay: 50/300
+      decay: 75/300
+      decay: 100/300
+      decay: 125/300
+      decay: 150/300
+      decay: 175/300
+      decay: 200/300
+      decay: 225/300
+      decay: 250/300
+      decay: 275/300
+      decay: 300/300
+    decay: all 300 runs converged to the requested accuracy
+    plot : figures written (short=XeXe544plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 287.11 (39.1%)
+
+================================================================
+dataset                         Fluidum       PRCC    PRCC/Fl
+----------------------------------------------------------------
+AuAu200_cc_(0,5)                 217.25      70.86      32.6%
+AuAu200_cc_(0,5)plus10           217.25      46.49      21.4%
+AuAu200_cc_(0,5)plus15           217.25      38.23      17.6%
+AuAu200_cc_(0,5)plus5            217.25      57.39      26.4%
+PbPb276_cc_(0,5)                 523.22     232.93      44.5%
+PbPb276_cc_(0,5)plus10           523.22     145.78      27.9%
+PbPb276_cc_(0,5)plus15           523.22     116.04      22.2%
+PbPb276_cc_(0,5)plus5            523.22     183.87      35.1%
+XeXe544_cc_(0,5)                 733.77     361.28      49.2%
+XeXe544_cc_(0,5)plus10           733.77     227.68      31.0%
+XeXe544_cc_(0,5)plus15           733.77     181.06      24.7%
+XeXe544_cc_(0,5)plus5            733.77     287.11      39.1%
+================================================================
+summary written to yields.csv

@@ -1,0 +1,44 @@
+plot stage for XeXe544_cc_(0,5)plus5
+written 2026-10-26 11:45:05
+
+dataset short name      : XeXe544plus5
+
+--------------------------------------------------------------------
+decay spectra
+--------------------------------------------------------------------
+masses read             : 300
+repaired masses         : none
+
+--------------------------------------------------------------------
+scale
+--------------------------------------------------------------------
+mode                    : fitted (physics.scale = "fit")
+fit window              : [0.05, 1] GeV, 20 experimental bins
+measured yield          : 848.697 +- 28.5 (bins uncorrelated)
+incoherent yield        : 719.681
+required coherent yield : 129.016
+unscaled coherent yield : 4718.03
+FITTED SCALE            : 0.027345208 +- 0.00603
+dsigma_coherent         : 23.3860 MeV
+WARNING: 2 bin(s) of the fit window lie BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. They carry 32.31 of the 719.7 incoherent yield in the window.
+
+--------------------------------------------------------------------
+figures
+--------------------------------------------------------------------
+  fig_XeXe544plus5_freezeout.pdf
+  fig_XeXe544plus5_primespecs.pdf
+  fig_XeXe544plus5_massspecs.pdf
+  fig_XeXe544plus5_specdense.pdf
+  fig_XeXe544plus5_fullspec.pdf
+  fig_XeXe544plus5_fullspec_min.pdf
+
+--------------------------------------------------------------------
+yields
+--------------------------------------------------------------------
+integration range       : [0, 1] GeV
+incoherent (FluiduM)    : 733.767
+coherent (PRCC)         : 130.852
+ratio                   : 17.8329%
+
+--------------------------------------------------------------------
+1 problem(s) reported above

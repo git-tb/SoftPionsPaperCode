@@ -1,0 +1,122 @@
+      WARNING: the anchor pT = 0.065 GeV lies BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. The fitted scale rests on that extrapolation and inherits its error.
+      WARNING: the anchor pT = 0.065 GeV lies BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. The fitted scale rests on that extrapolation and inherits its error.
+      WARNING: the anchor pT = 0.065 GeV lies BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. The fitted scale rests on that extrapolation and inherits its error.
+      WARNING: the anchor pT = 0.065 GeV lies BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. The fitted scale rests on that extrapolation and inherits its error.
+root    : datanew
+datasets: 12
+stages  : plot
+jobs    : 1 (decay), 1 (spec)
+
+[1/12] AuAu200_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.25 GeV
+           measured 329 = incoherent 242.1 + coherent 86.95  ->  scale = 0.062968, dsigma_coherent = 35.5 MeV
+    plot : figures written (short=AuAu200)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 74.36 (34.2%)
+           log: plot.log
+
+[2/12] AuAu200_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.25 GeV
+           measured 329 = incoherent 242.1 + coherent 86.95  ->  scale = 0.0960281, dsigma_coherent = 43.8 MeV
+    plot : figures written (short=AuAu200plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 74.41 (34.3%)
+           log: plot.log
+
+[3/12] AuAu200_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.25 GeV
+           measured 329 = incoherent 242.1 + coherent 86.95  ->  scale = 0.116471, dsigma_coherent = 48.3 MeV
+    plot : figures written (short=AuAu200plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 74.22 (34.2%)
+           log: plot.log
+
+[4/12] AuAu200_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.25 GeV
+           measured 329 = incoherent 242.1 + coherent 86.95  ->  scale = 0.0778733, dsigma_coherent = 39.5 MeV
+    plot : figures written (short=AuAu200plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 74.49 (34.3%)
+           log: plot.log
+
+[5/12] PbPb276_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.11 GeV
+           measured 1543 = incoherent 903.7 + coherent 639.3  ->  scale = 0.0912209, dsigma_coherent = 42.7 MeV
+    plot : figures written (short=PbPb276)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 354.14 (67.7%)
+           log: plot.log
+
+[6/12] PbPb276_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.11 GeV
+           measured 1543 = incoherent 903.7 + coherent 639.3  ->  scale = 0.146234, dsigma_coherent = 54.1 MeV
+    plot : figures written (short=PbPb276plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 355.29 (67.9%)
+           log: plot.log
+
+[7/12] PbPb276_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.11 GeV
+           measured 1543 = incoherent 903.7 + coherent 639.3  ->  scale = 0.183653, dsigma_coherent = 60.6 MeV
+    plot : figures written (short=PbPb276plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 355.18 (67.9%)
+           log: plot.log
+
+[8/12] PbPb276_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.11 GeV
+           measured 1543 = incoherent 903.7 + coherent 639.3  ->  scale = 0.115706, dsigma_coherent = 48.1 MeV
+    plot : figures written (short=PbPb276plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 354.58 (67.8%)
+           log: plot.log
+
+[9/12] XeXe544_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.065 GeV
+           measured 2640 = incoherent 1420 + coherent 1219  ->  scale = 0.110543, dsigma_coherent = 47.0 MeV
+    plot : figures written (short=XeXe544)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 665.61 (90.7%)
+           log: plot.log, 1 problem(s)
+
+[10/12] XeXe544_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.065 GeV
+           measured 2640 = incoherent 1420 + coherent 1219  ->  scale = 0.175272, dsigma_coherent = 59.2 MeV
+    plot : figures written (short=XeXe544plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 665.11 (90.6%)
+           log: plot.log, 1 problem(s)
+
+[11/12] XeXe544_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.065 GeV
+           measured 2640 = incoherent 1420 + coherent 1219  ->  scale = 0.219933, dsigma_coherent = 66.3 MeV
+    plot : figures written (short=XeXe544plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 663.68 (90.4%)
+           log: plot.log, 1 problem(s)
+
+[12/12] XeXe544_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted at the lowest experimental point pT=0.065 GeV
+           measured 2640 = incoherent 1420 + coherent 1219  ->  scale = 0.139256, dsigma_coherent = 52.8 MeV
+    plot : figures written (short=XeXe544plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 666.36 (90.8%)
+           log: plot.log, 1 problem(s)
+
+================================================================
+dataset                         Fluidum       PRCC    PRCC/Fl
+----------------------------------------------------------------
+AuAu200_cc_(0,5)                 217.25      74.36      34.2%
+AuAu200_cc_(0,5)plus10           217.25      74.41      34.3%
+AuAu200_cc_(0,5)plus15           217.25      74.22      34.2%
+AuAu200_cc_(0,5)plus5            217.25      74.49      34.3%
+PbPb276_cc_(0,5)                 523.22     354.14      67.7%
+PbPb276_cc_(0,5)plus10           523.22     355.29      67.9%
+PbPb276_cc_(0,5)plus15           523.22     355.18      67.9%
+PbPb276_cc_(0,5)plus5            523.22     354.58      67.8%
+XeXe544_cc_(0,5)                 733.77     665.61      90.7%
+XeXe544_cc_(0,5)plus10           733.77     665.11      90.6%
+XeXe544_cc_(0,5)plus15           733.77     663.68      90.4%
+XeXe544_cc_(0,5)plus5            733.77     666.36      90.8%
+================================================================
+summary written to yields_fit.csv

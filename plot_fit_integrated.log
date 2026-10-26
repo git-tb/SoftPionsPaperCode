@@ -1,0 +1,122 @@
+      WARNING: 2 bin(s) of the fit window lie BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. They carry 32.31 of the 719.7 incoherent yield in the window.
+      WARNING: 2 bin(s) of the fit window lie BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. They carry 32.31 of the 719.7 incoherent yield in the window.
+      WARNING: 2 bin(s) of the fit window lie BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. They carry 32.31 of the 719.7 incoherent yield in the window.
+      WARNING: 2 bin(s) of the fit window lie BELOW the lowest FluiduM data point (0.11 GeV), so the incoherent baseline there is EXTRAPOLATED by the degree-10 log-polynomial, not measured. They carry 32.31 of the 719.7 incoherent yield in the window.
+root    : datanew
+datasets: 12
+stages  : plot
+jobs    : 1 (decay), 1 (spec)
+
+[1/12] AuAu200_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.2, 1] GeV (8 bins)
+           measured 203.1 = incoherent 166.5 + coherent 36.63  ->  scale = 0.0393977 +- 0.00079, dsigma_coherent = 28.1 MeV
+    plot : figures written (short=AuAu200)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 46.53 (21.4%)
+           log: plot.log
+
+[2/12] AuAu200_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.2, 1] GeV (8 bins)
+           measured 203.1 = incoherent 166.5 + coherent 36.63  ->  scale = 0.0600194 +- 0.0012, dsigma_coherent = 34.6 MeV
+    plot : figures written (short=AuAu200plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 46.51 (21.4%)
+           log: plot.log
+
+[3/12] AuAu200_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.2, 1] GeV (8 bins)
+           measured 203.1 = incoherent 166.5 + coherent 36.63  ->  scale = 0.0729265 +- 0.0015, dsigma_coherent = 38.2 MeV
+    plot : figures written (short=AuAu200plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 46.47 (21.4%)
+           log: plot.log
+
+[4/12] AuAu200_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.2, 1] GeV (8 bins)
+           measured 203.1 = incoherent 166.5 + coherent 36.63  ->  scale = 0.0486267 +- 0.00097, dsigma_coherent = 31.2 MeV
+    plot : figures written (short=AuAu200plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 217.25   PRCC: 46.51 (21.4%)
+           log: plot.log
+
+[5/12] PbPb276_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.1, 1] GeV (21 bins)
+           measured 596.3 = incoherent 489.2 + coherent 107.2  ->  scale = 0.0293093 +- 0.0032, dsigma_coherent = 24.2 MeV
+    plot : figures written (short=PbPb276)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 113.78 (21.7%)
+           log: plot.log
+
+[6/12] PbPb276_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.1, 1] GeV (21 bins)
+           measured 596.3 = incoherent 489.2 + coherent 107.2  ->  scale = 0.0468513 +- 0.0052, dsigma_coherent = 30.6 MeV
+    plot : figures written (short=PbPb276plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 113.83 (21.8%)
+           log: plot.log
+
+[7/12] PbPb276_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.1, 1] GeV (21 bins)
+           measured 596.3 = incoherent 489.2 + coherent 107.2  ->  scale = 0.0588782 +- 0.0065, dsigma_coherent = 34.3 MeV
+    plot : figures written (short=PbPb276plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 113.87 (21.8%)
+           log: plot.log
+
+[8/12] PbPb276_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.1, 1] GeV (21 bins)
+           measured 596.3 = incoherent 489.2 + coherent 107.2  ->  scale = 0.0371519 +- 0.0041, dsigma_coherent = 27.3 MeV
+    plot : figures written (short=PbPb276plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 523.22   PRCC: 113.85 (21.8%)
+           log: plot.log
+
+[9/12] XeXe544_cc_(0,5)
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.05, 1] GeV (20 bins)
+           measured 848.7 = incoherent 719.7 + coherent 129  ->  scale = 0.0217328 +- 0.0048, dsigma_coherent = 20.8 MeV
+    plot : figures written (short=XeXe544)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 130.86 (17.8%)
+           log: plot.log, 1 problem(s)
+
+[10/12] XeXe544_cc_(0,5)plus10
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.05, 1] GeV (20 bins)
+           measured 848.7 = incoherent 719.7 + coherent 129  ->  scale = 0.0344924 +- 0.0076, dsigma_coherent = 26.3 MeV
+    plot : figures written (short=XeXe544plus10)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 130.89 (17.8%)
+           log: plot.log, 1 problem(s)
+
+[11/12] XeXe544_cc_(0,5)plus15
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.05, 1] GeV (20 bins)
+           measured 848.7 = incoherent 719.7 + coherent 129  ->  scale = 0.0433753 +- 0.0096, dsigma_coherent = 29.5 MeV
+    plot : figures written (short=XeXe544plus15)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 130.89 (17.8%)
+           log: plot.log, 1 problem(s)
+
+[12/12] XeXe544_cc_(0,5)plus5
+    config: 300 masses on (0.28, 2) GeV, scale=fit (solved at plot time)
+    plot : scale fitted to the measured yield on [0.05, 1] GeV (20 bins)
+           measured 848.7 = incoherent 719.7 + coherent 129  ->  scale = 0.0273452 +- 0.006, dsigma_coherent = 23.4 MeV
+    plot : figures written (short=XeXe544plus5)
+           pions/dy on [0,1] GeV -- Fluidum: 733.77   PRCC: 130.85 (17.8%)
+           log: plot.log, 1 problem(s)
+
+================================================================
+dataset                         Fluidum       PRCC    PRCC/Fl
+----------------------------------------------------------------
+AuAu200_cc_(0,5)                 217.25      46.53      21.4%
+AuAu200_cc_(0,5)plus10           217.25      46.51      21.4%
+AuAu200_cc_(0,5)plus15           217.25      46.47      21.4%
+AuAu200_cc_(0,5)plus5            217.25      46.51      21.4%
+PbPb276_cc_(0,5)                 523.22     113.78      21.7%
+PbPb276_cc_(0,5)plus10           523.22     113.83      21.8%
+PbPb276_cc_(0,5)plus15           523.22     113.87      21.8%
+PbPb276_cc_(0,5)plus5            523.22     113.85      21.8%
+XeXe544_cc_(0,5)                 733.77     130.86      17.8%
+XeXe544_cc_(0,5)plus10           733.77     130.89      17.8%
+XeXe544_cc_(0,5)plus15           733.77     130.89      17.8%
+XeXe544_cc_(0,5)plus5            733.77     130.85      17.8%
+================================================================
+summary written to yields_fit_integrated.csv

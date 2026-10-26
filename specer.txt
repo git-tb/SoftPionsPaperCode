@@ -1,0 +1,29 @@
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl. Total   Incl. Total    Name
+CPU           CPU
+ sec.      %   sec.      %
+1.171 100.00  1.171 100.00   <Total>
+0.490  41.88  0.490  41.88   <static>@0x77ace (<libm.so.6>)
+0.290  24.79  0.290  24.79   boost::math::interpolators::detail::cubic_hermite_detail<std::vector<double, std::allocator<double> > >::operator()(double) const
+0.120  10.26  0.120  10.26   <static>@0x28813 (<libm.so.6>)
+0.070   5.98  1.151  98.29   myintegrand::{lambda(double, void*)#1}::operator()(double, void*) const
+0.040   3.42  0.180  15.38   __j1_finite
+0.040   3.42  0.220  18.80   __y0_finite
+0.030   2.56  0.030   2.56   <static>@0x2934e (<libm.so.6>)
+0.030   2.56  0.280  23.93   __j0_finite
+0.020   1.71  0.020   1.71   <static>@0x10220 (<libm.so.6>)
+0.020   1.71  0.070   5.98   __y1_finite
+0.010   0.85  0.010   0.85   std::_Function_handler<double (double), boost::math::interpolators::pchip<std::vector<double, std::allocator<double> > > >::_M_invoke(std::_Any_data const&, double&&)
+0.010   0.85  0.020   1.71   std::_Function_handler<std::complex<double> (double), main::{lambda(double)#2}>::_M_invoke(std::_Any_data const&, double&&)
+0.      0.    1.161  99.15   <static>@0x225ae (<libgomp.so.1.0.0>)
+0.      0.    1.161  99.15   <static>@0x5115c (<libgp-collector.so>)
+0.      0.    1.161  99.15   <static>@0x9c526 (<libc.so.6>)
+0.      0.    1.161  99.15   gsl_integration_qag
+0.      0.    1.161  99.15   gsl_integration_qk
+0.      0.    1.161  99.15   gsl_integration_qk61
+0.      0.    1.161  99.15   spectr_Jp(std::vector<double, std::allocator<double> >, double, std::function<std::complex<double> (double)>, std::function<std::complex<double> (double)>, freezeoutFunctions, double, double, int, bool, std::function<void (double, std::complex<double>)>) [clone ._omp_fn.0]
+0.      0.    0.690  58.97   spectr_Jp(std::vector<double, std::allocator<double> >, double, std::function<std::complex<double> (double)>, std::function<std::complex<double> (double)>, freezeoutFunctions, double, double, int, bool, std::function<void (double, std::complex<double>)>)::{lambda(double, void*)#1}::_FUN(double, void*)
+0.      0.    0.460  39.32   spectr_Jp(std::vector<double, std::allocator<double> >, double, std::function<std::complex<double> (double)>, std::function<std::complex<double> (double)>, freezeoutFunctions, double, double, int, bool, std::function<void (double, std::complex<double>)>)::{lambda(double, void*)#2}::_FUN(double, void*)
+0.      0.    0.030   2.56   std::_Function_handler<std::complex<double> (double), main::{lambda(double)#1}>::_M_invoke(std::_Any_data const&, double&&)
+
